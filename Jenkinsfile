@@ -4,13 +4,13 @@ pipeline {
     stages {
         stage('Install Dependencies') {
             steps {
-                sh 'pip install -r requirements.txt'
+                sh 'docker run --rm -v $(pwd):/app -w /app python:3.11-slim pip install -r requirements.txt'
             }
         }
 
         stage('Run Tests') {
             steps {
-                sh 'pytest tests/ -v'
+                sh 'docker run --rm -v $(pwd):/app -w /app python:3.11-slim sh -c "pip install -r requirements.txt && pytest tests/ -v"'
             }
         }
 
