@@ -1,8 +1,12 @@
 from fastapi import FastAPI, HTTPException
+from prometheus_fastapi_instrumentator import Instrumentator
+from prometheus_fastapi_instrumentator import Instrumentator
 from pydantic import BaseModel
 from typing import List, Optional
 
 app = FastAPI()
+
+Instrumentator().instrument(app).expose(app)
 
 # Temporary in-memory storage for now
 tasks = []
